@@ -4,5 +4,7 @@
 
    tasks:
      - include: tasks/install-apache.yml
+     - include: tasks/install-mariadb.yml
+
 
 ...

@@ -2,10 +2,10 @@
    - name: Install httpd package
      yum: name=httpd state=latest
     #sudo: yes
-     when: ansible_os_family == "Redhat"
+     when: ansible_os_family == "RedHat"
 
    - name: Install apache2 package
-     yum: name=apache2 state=latest
+     apt: name=apache2 state=latest
     #sudo: yes
      when: ansible_os_family == "Debian"
 
