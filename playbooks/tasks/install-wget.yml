@@ -1,0 +1,12 @@
+---
+   - name: Install wget package
+     yum: name=wget state=latest
+    #sudo: yes
+     when: ansible_os_family == "RedHat"
+
+   - name: Install wget package
+     apt: name=wget state=latest
+    #sudo: yes
+     when: ansible_os_family == "Debian"
+
+...

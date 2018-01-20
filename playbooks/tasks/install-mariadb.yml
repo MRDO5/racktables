@@ -4,9 +4,23 @@
     #sudo: yes
      when: ansible_os_family == "RedHat"
 
+   - name: Starting mariadb service
+     service: name=mariadb state=started enabled=yes
+
+
    - name: Install mariadb package
      apt: name=mariadb-server,mariadb state=latest
     #sudo: yes
      when: ansible_os_family == "Debian"
+
+   - name: Starting mariadb service
+     service: name=mariadb state=started enabled=yes
+
+     notify:
+        - restart mariadb
+
+     handlers:
+        - name: restart mariadb
+          service: name=mariadb state=restarted
 
 ...

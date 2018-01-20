@@ -1,4 +1,17 @@
 ---
+    - name: mysql_secure_installation
+      command: mysql_secure_installation
+      
+
+Create database/user.
+
+# mysql -u root -p
+# mariadb> create database racktables;
+# mariadb> grant all privileges on racktables.* TO 'rackuser'@'localhost' identified by 'Passw0rd!';
+# mariadb> flush privileges;
+# mariadb> exit
+
+
    - name: Install httpd package
      yum: name=httpd state=latest
     #sudo: yes

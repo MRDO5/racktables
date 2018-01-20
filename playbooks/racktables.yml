@@ -5,6 +5,17 @@
    tasks:
      - include: tasks/install-apache.yml
      - include: tasks/install-mariadb.yml
+     - include: tasks/install-wget.yml
+
+     - name: Download RackTables-0.20.14
+       get_url: url=https://nchc.dl.sourceforge.net/project/racktables/RackTables-0.20.14.tar.gz dest=/tmp
+
+     - name: Extract RackTables-0.20.14 archive
+       command: chdir=/tmp /bin/tar xvf RackTables-0.20.14.tar.gz
+
+     - name: Copy RackTables-0.20.14 wwwroot
+       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables1
+
 
 
 ...
