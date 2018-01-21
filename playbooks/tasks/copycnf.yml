@@ -9,8 +9,8 @@
        backup: yes
      tags: utf8
 
-     notify:
-        - restart mariadb
+    notify:
+       - restart mariadb
 
 
 ...
