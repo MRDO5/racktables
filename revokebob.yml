@@ -1,0 +1,16 @@
+---
+ - hosts: servers
+   remote_user: root
+
+   tasks:
+
+     - name: Revoke database user with name bob
+       mysql_user:
+         name: bob
+         login_user: root
+         login_password: martin**%%
+         password: 12345
+         priv: '*.*:USAGE'
+         state: absent
+
+...

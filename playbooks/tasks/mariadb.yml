@@ -1,4 +1,16 @@
 ---
+
+     - name: Set root default password
+       mysql_user:
+         name: root
+         password: martin**%%
+         priv: '*.*:ALL,GRANT'
+         state: present
+         check_implicit_admin: yes
+       ignore_errors: yes
+       tags: mariadbrdf
+
+
      - name: Create a new database with name 'racktables2'
        mysql_db:
          name: racktables2
