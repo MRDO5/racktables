@@ -14,7 +14,16 @@
    - name: Creating phpinfo file
      shell: echo '<?php echo phpinfo(); ?>' > /var/www/html/info.php
 
-     notify:
-       - restart httpd
+#     notify:
+ #      - restart httpd
+
+#     handlers:
+#       - name: restart httpd
+#         service: name=httpd state=restarted
+
+#       - name: restart mariadb
+#         service: name=mariadb state=restarted
+
+
 
 ...

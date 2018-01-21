@@ -21,14 +21,7 @@
         - restart httpd
 #        - restart apache2
 
-     handlers:
-        - name: restart httpd
-          service: name=httpd state=restarted
 
-
-#     handlers:
-#        - name: restart apache2
-#          service: name=apache2 state=restarted
 
 
 ...

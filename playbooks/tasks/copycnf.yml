@@ -1,0 +1,16 @@
+---
+   - name: Copy charachter set conf file for utf8 - Mysql server
+     copy:
+       src: tasks/server.cnf
+       dest: /etc/my.cnf.d/server.cnf
+#       owner: foo
+#       group: foo
+#       mode: 0644
+       backup: yes
+     tags: utf8
+
+     notify:
+        - restart mariadb
+
+
+...

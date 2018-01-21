@@ -7,6 +7,8 @@
      - include: tasks/install-mariadb.yml
      - include: tasks/install-mysqlpython.yml
      - include: tasks/mariadb.yml
+#     - include: tasks/utf8-mysqlsrv.yml
+     - include: tasks/copycnf.yml
      - include: tasks/install-phpex.yml
      - include: tasks/install-wget.yml
 
@@ -19,10 +21,6 @@
 
      - name: Copy RackTables-0.20.14 wwwroot
        command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables5
-
-   handlers:
-        - name: restart httpd
-          service: name=httpd state=restarted
 
 
 

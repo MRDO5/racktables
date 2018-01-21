@@ -19,8 +19,5 @@
      notify:
         - restart mariadb
 
-     handlers:
-        - name: restart mariadb
-          service: name=mariadb state=restarted
 
 ...

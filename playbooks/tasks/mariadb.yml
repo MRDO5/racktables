@@ -49,19 +49,10 @@
 #       tags: mariadbus
 
 
-
-
-
-
-
      # vars_prompt:
      #  - name: "Press Enter"
       #   prompt: "Enter"
 
-
-# mysql -u root -p
-# mariadb> flush privileges;
-# mariadb> exit
 
 
 ...
