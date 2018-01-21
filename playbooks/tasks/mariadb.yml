@@ -1,47 +1,46 @@
 ---
-    - name: mysql_secure_installation
-      command: mysql_secure_installation
-      
+     - name: Create a new database with name 'racktables2'
+       mysql_db:
+         name: racktables2
+         login_user: root
+         login_password: martin**%%
+         state: present
+       tags: mariadb
 
-Create database/user.
+     - name: Create database user with name rackuser
+       mysql_user:
+         name: rackuser
+         login_user: root
+         login_password: martin**%%
+         password: 123456
+         priv: 'racktables2.*:ALL'
+         state: present
+       tags: mariadbuser
+
+     - name: Flushe database privileges
+       mysql_user:
+         name: root
+         login_user: root
+         login_password: martin**%%
+         priv: '*.*:ALL,GRANT'
+         state: present
+         check_implicit_admin: yes
+       ignore_errors: yes 
+       tags: mariadbroot
+
+
+
+
+     # vars_prompt:
+     #  - name: "Press Enter"
+      #   prompt: "Enter"
+
 
 # mysql -u root -p
-# mariadb> create database racktables;
-# mariadb> grant all privileges on racktables.* TO 'rackuser'@'localhost' identified by 'Passw0rd!';
 # mariadb> flush privileges;
 # mariadb> exit
 
 
-   - name: Install httpd package
-     yum: name=httpd state=latest
-    #sudo: yes
-     when: ansible_os_family == "RedHat"
-
-   - name: Starting httpd service
-     service: name=httpd state=started enabled=yes
-
-
-   - name: Install apache2 package
-     apt: name=apache2 state=latest
-    #sudo: yes
-     when: ansible_os_family == "Debian"
-
-#   - name: Starting apache2 service
-#     service: name=apache2 state=started enabled=yes
-
-
-     notify:
-        - restart httpd
-#        - restart apache2
-
-     handlers:
-        - name: restart httpd
-          service: name=httpd state=restarted
-
-
-#     handlers:
-#        - name: restart apache2
-#          service: name=apache2 state=restarted
 
 
 ...
