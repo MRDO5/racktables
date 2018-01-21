@@ -6,7 +6,7 @@
 
      - name: Revoke database user with name bob
        mysql_user:
-         name: bob
+         name: rackuser
          login_user: root
          login_password: martin**%%
          password: 12345

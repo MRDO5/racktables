@@ -11,9 +11,9 @@
        tags: mariadbrdf
 
 
-     - name: Create a new database with name 'racktables2'
+     - name: Create a new database with name 'racktables5'
        mysql_db:
-         name: racktables2
+         name: racktables5
          login_user: root
          login_password: martin**%%
          state: present
@@ -21,11 +21,11 @@
 
      - name: Create database user with name rackuser
        mysql_user:
-         name: rackuser
+         name: rackuser5
          login_user: root
          login_password: martin**%%
          password: 123456
-         priv: 'racktables2.*:ALL'
+         priv: 'racktables5.*:ALL'
          state: present
        tags: mariadbuser
 
@@ -41,6 +41,17 @@
        tags: mariadbroot
 
 
+#     - name: Testing createt user working
+#       mysql_user:
+#         login_user: rackuser5
+#         login_password: 123456
+#         state: present
+#       tags: mariadbus
+
+
+
+
+
 
 
      # vars_prompt:
@@ -51,8 +62,6 @@
 # mysql -u root -p
 # mariadb> flush privileges;
 # mariadb> exit
-
-
 
 
 ...

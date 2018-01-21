@@ -5,13 +5,10 @@
    tasks:
      - include: tasks/install-apache.yml
      - include: tasks/install-mariadb.yml
+     - include: tasks/install-mysqlpython.yml
      - include: tasks/mariadb.yml
-#     - include: tasks/db.yml
-
-
-#     - include: tasks/root-password.yml
+     - include: tasks/install-phpex.yml
      - include: tasks/install-wget.yml
-
 
 
      - name: Download RackTables-0.20.14
@@ -21,7 +18,11 @@
        command: chdir=/tmp /bin/tar xvf RackTables-0.20.14.tar.gz
 
      - name: Copy RackTables-0.20.14 wwwroot
-       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables1
+       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables5
+
+   handlers:
+        - name: restart httpd
+          service: name=httpd state=restarted
 
 
 

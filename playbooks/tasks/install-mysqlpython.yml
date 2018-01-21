@@ -1,0 +1,14 @@
+---
+   - name: Install MySQL-python package
+     yum: name=MySQL-python state=latest
+    #sudo: yes
+     when: ansible_os_family == "RedHat"
+     tags: mysql-python
+
+   - name: Install MySQL-python package
+     apt: name=MySQL-python state=latest
+    #sudo: yes
+     when: ansible_os_family == "Debian"
+
+
+...
