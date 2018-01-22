@@ -1,0 +1,14 @@
+---
+   - name: Create racktables.conf file under the apache configuration directory
+     copy:
+       src: tasks/racktables.conf
+       dest: /etc/httpd/conf.d/
+#       owner: foo
+#       group: foo
+#       mode: 0644
+       backup: yes
+     tags: rackconf
+
+     notify:
+       - restart httpd
+...
