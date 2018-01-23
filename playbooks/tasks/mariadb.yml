@@ -11,9 +11,9 @@
        tags: mariadbrdf
 
 
-     - name: Create a new database with name 'racktables5'
+     - name: Create a new database with name 'racktables'
        mysql_db:
-         name: racktables5
+         name: racktables
          login_user: root
          login_password: martin**%%
          state: present
@@ -21,11 +21,11 @@
 
      - name: Create database user with name rackuser
        mysql_user:
-         name: rackuser5
+         name: rackuser
          login_user: root
          login_password: martin**%%
          password: 123456
-         priv: 'racktables5.*:ALL'
+         priv: 'racktables.*:ALL'
          state: present
        tags: mariadbuser
 
@@ -43,7 +43,7 @@
 
 #     - name: Testing createt user working
 #       mysql_user:
-#         login_user: rackuser5
+#         login_user: rackuser
 #         login_password: 123456
 #         state: present
 #       tags: mariadbus

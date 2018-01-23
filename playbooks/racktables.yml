@@ -8,14 +8,14 @@
      - include: tasks/install-mysqlpython.yml
      - include: tasks/mariadb.yml
 #     - include: tasks/utf8-mysqlsrv.yml
-     - include: tasks/copycnf.yml
+     - include: tasks/utf8cnf.yml
      - meta: flush_handlers
      - include: tasks/install-phpex.yml
      - include: tasks/install-wget.yml
 
 
-     - name: Create rabktables user
-       user: name=racktables5 shell=/sbin/nologin comment="RackTables User" createhome=yes home=/home/racktables5
+     - name: Create racktables user
+       user: name=racktables shell=/sbin/nologin comment="RackTables User" createhome=yes home=/home/racktables
 
 
      - name: Download RackTables-0.20.14
@@ -25,15 +25,15 @@
        command: chdir=/tmp /bin/tar xvf RackTables-0.20.14.tar.gz
 
      - name: Copy RackTables-0.20.14 wwwroot
-       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables5
+       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables
 
      - name: Change ownership for copied catalog
-       command: chown -R racktables5:racktables5 /var/www/html/racktables5
+       command: chown -R racktables:racktables /var/www/html/racktables
 
      - include: tasks/rackconf.yml
      - meta: flush_handlers
 
-
+     - include: tasks/secretphp.yml
 
 
    handlers:
