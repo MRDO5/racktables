@@ -33,8 +33,22 @@
      - include: tasks/rackconf.yml
      - meta: flush_handlers
 
-     - include: tasks/secretphp.yml
+##     - include: tasks/secretphp.yml
 
+     - name: Wait until the string Password is in the file secret.php before continuing
+       wait_for:
+         path: /var/www/html/racktables/inc/secret.php
+         search_regex: username
+       tags: wait
+
+
+     - firewalld:
+         service: http
+         permanent: true
+         state: enabled
+       tags: firewall
+       notify:
+         - restart firewalld
 
    handlers:
      - name: restart httpd
@@ -43,5 +57,7 @@
      - name: restart mariadb
        service: name=mariadb state=restarted
 
+     - name: restart firewalld
+       service: name=firewalld state=restarted
 
 ...
