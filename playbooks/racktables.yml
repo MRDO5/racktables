@@ -45,10 +45,11 @@
        tags: file
 
 
-     - name: Wait until the string Password is in the file secret.php before continuing
+     - name: Wait until the string Username is in the file secret.php before continuing
        wait_for:
          path: /var/www/html/racktables/inc/secret.php
          search_regex: username
+         delay: 180 
        tags: wait
 
 
@@ -66,13 +67,6 @@
 #       tags: chors
 
 
-     - name: Wait until the string Password is in the file secret.php before continuing
-       wait_for:
-         path: /var/www/html/racktables/inc/secret.php
-         search_regex: username
-       tags: wait
-
-
      - firewalld:
          service: http
          permanent: true
@@ -80,6 +74,10 @@
        tags: firewall
        notify:
          - restart firewalld
+
+     - selinux:
+#         policy: targeted
+         state: permissive
 
    handlers:
      - name: restart httpd
