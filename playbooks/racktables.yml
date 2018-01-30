@@ -20,6 +20,7 @@
 
      - name: Download RackTables-0.20.14
        get_url: url=https://nchc.dl.sourceforge.net/project/racktables/RackTables-0.20.14.tar.gz dest=/tmp
+       force: no  
 
      - name: Extract RackTables-0.20.14 archive
        command: chdir=/tmp /bin/tar xvf RackTables-0.20.14.tar.gz
