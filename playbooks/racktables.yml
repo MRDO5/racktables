@@ -35,21 +35,41 @@
      - meta: flush_handlers
 
 
-     - file:
+     - name: Serch secret.php is available
+       stat: 
+         path: /var/www/html/racktables/inc/secret.php
+       register: result
+
+     - name: Create secret.php file, if it doesnt exist
+       file:
          path: /var/www/html/racktables/inc/secret.php
          owner: apache
          group: apache
          mode:  a=rw
-         state: file
          state: touch 
+       when: result.stat.exists == False
        tags: file
+
+     - firewalld:
+         service: http
+         permanent: true
+         state: enabled
+       tags: firewall
+       notify:
+         - restart firewalld
+     - meta: flush_handlers
+
+
+     - selinux:
+#         permanent: true
+         state: disabled
 
 
      - name: Wait until the string Username is in the file secret.php before continuing
        wait_for:
          path: /var/www/html/racktables/inc/secret.php
          search_regex: username
-         delay: 180 
+         delay: 100 
        tags: wait
 
 
@@ -67,17 +87,6 @@
 #       tags: chors
 
 
-     - firewalld:
-         service: http
-         permanent: true
-         state: enabled
-       tags: firewall
-       notify:
-         - restart firewalld
-
-     - selinux:
-#         policy: targeted
-         state: permissive
 
    handlers:
      - name: restart httpd
