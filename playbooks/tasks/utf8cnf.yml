@@ -1,7 +1,7 @@
 ---
    - name: Copy charachter set conf file for utf8 - Mysql server
      copy:
-       src: tasks/server.cnf
+       src: template/server.cnf
        dest: /etc/my.cnf.d/server.cnf
 #       owner: foo
 #       group: foo

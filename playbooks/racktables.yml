@@ -34,7 +34,6 @@
      - include: tasks/rackconf.yml
      - meta: flush_handlers
 
-#     - include: tasks/secretphp.yml
 
      - file:
          path: /var/www/html/racktables/inc/secret.php
@@ -46,9 +45,17 @@
        tags: file
 
 
+     - name: Wait until the string Password is in the file secret.php before continuing
+       wait_for:
+         path: /var/www/html/racktables/inc/secret.php
+         search_regex: username
+       tags: wait
+
+
      - name: RackTables installation step 4 of 7
-       shell: yes '' | chmod 440 /var/www/html/racktables/inc/secret.php
+       shell: chmod 440 /var/www/html/racktables/inc/secret.php
        tags: chors
+
 
 #       expect:
 #          command:  chmod 440 /var/www/html/racktables/inc/secret.php
@@ -83,5 +90,6 @@
 
      - name: restart firewalld
        service: name=firewalld state=restarted
+
 
 ...

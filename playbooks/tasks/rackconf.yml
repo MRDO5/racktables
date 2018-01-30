@@ -1,7 +1,7 @@
 ---
    - name: Create racktables.conf file under the apache configuration directory
      copy:
-       src: tasks/racktables.conf
+       src: template/racktables.conf
        dest: /etc/httpd/conf.d/
 #       owner: foo
 #       group: foo
