@@ -21,15 +21,21 @@
      - name: Download RackTables
        git: 
          repo: https://github.com/RackTables/racktables.git
-         dest: /tmp/racktables
+         dest: /var/www/html/racktables/
        tags: git  
 
 
-     - name: Copy RackTables to wwwroot
-       shell: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables/
+#     - name: Copy RackTables to wwwroot
+#       shell: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables/
+#       command: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables
+#       tags: cp
 
-     - name: Change ownership for copied catalog
-       shell: chown -R racktables:racktables /var/www/html/racktables
+     - name: Change ownership /var/www/html/racktables/ catalog
+       file: 
+         path: /var/www/html/racktables
+         owner: racktables
+         group: racktables
+         state: directory
 
      - include: tasks/rackconf.yml
      - meta: flush_handlers
@@ -37,12 +43,12 @@
 
      - name: Serch secret.php is available
        stat: 
-         path: /var/www/html/racktables/inc/secret.php
+         path: /var/www/html/racktables/wwwroot/inc/secret.php
        register: result
 
      - name: Create secret.php file, if it doesnt exist
        file:
-         path: /var/www/html/racktables/inc/secret.php
+         path: /var/www/html/racktables/wwwroot/inc/secret.php
          owner: apache
          group: apache
          mode:  a=rw
@@ -66,16 +72,20 @@
 
 
      - name: Wait until the string Username is in the file secret.php before continuing >
-             open http://Server-IP/racktables/?module=installer  you have 
+             open http://Server-IP/racktables/?module=installer
        wait_for:
-         path: /var/www/html/racktables/inc/secret.php
+         path: /var/www/html/racktables/wwwroot/inc/secret.php
          search_regex: username
-         delay: 80 
+         delay: 60 
        tags: wait
 
 
      - name: RackTables installation step 4 of 7
-       shell: chmod 440 /var/www/html/racktables/inc/secret.php
+       file: 
+         path: /var/www/html/racktables/wwwroot/inc/secret.php
+         owner: apache
+         group: apache
+         mode: 0440
        tags: chors
 
 
