@@ -1,0 +1,7 @@
+---
+   - name: Install git package
+     yum: name=git state=present
+    #sudo: yes
+     when: ansible_os_family == "RedHat"
+
+...

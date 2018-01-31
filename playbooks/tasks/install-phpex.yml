@@ -1,14 +1,8 @@
 ---
    - name: Install php and extensions
-     yum: name=php,php-mysqlnd,php-pdo,php-gd,php-snmp,php-mbstring,php-bcmath,php-ldap state=latest
+     yum: name=php,php-mysqlnd,php-pdo,php-gd,php-snmp,php-mbstring,php-bcmath,php-ldap state=present
 #  sudo: yes
      when: ansible_os_family == "RedHat"
-
-
-   - name: Install php and extensions
-     apt: name=php,php-mysqlnd,php-pdo,php-gd,php-snmp,php-mbstring,php-bcmath,php-ldap state=latest
-#  sudo: yes
-     when: ansible_os_family == "Debian"
 
 
    - name: Creating phpinfo file

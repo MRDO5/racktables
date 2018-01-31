@@ -1,8 +1,12 @@
 ---
-   - name: Copy charachter set conf file for utf8 - Mysql server
-     copy:
-       src: template/server.cnf
+   - name: Copy charachter set of Mysql server to utf8
+     blockinfile:
        dest: /etc/my.cnf.d/server.cnf
+       block: |
+         character-set-server = utf8
+         collation-server = utf8_general_ci
+         skip-character-set-client-handshake
+       insertafter:  '^\[server\]'
 #       owner: foo
 #       group: foo
 #       mode: 0644

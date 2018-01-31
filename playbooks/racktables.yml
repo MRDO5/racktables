@@ -7,11 +7,10 @@
      - include: tasks/install-mariadb.yml
      - include: tasks/install-mysqlpython.yml
      - include: tasks/mariadb.yml
-#     - include: tasks/utf8-mysqlsrv.yml
      - include: tasks/utf8cnf.yml
      - meta: flush_handlers
      - include: tasks/install-phpex.yml
-     - include: tasks/install-wget.yml
+     - include: tasks/install-git.yml
 
 
      - name: Create racktables user
@@ -19,17 +18,17 @@
 
 
      - name: Download RackTables-0.20.14
-       get_url: url=https://nchc.dl.sourceforge.net/project/racktables/RackTables-0.20.14.tar.gz dest=/tmp
-       force: no  
+       git: 
+         repo: https://github.com/RackTables/racktables.git
+         dest: /tmp/racktables
+       tags: git  
 
-     - name: Extract RackTables-0.20.14 archive
-       command: chdir=/tmp /bin/tar xvf RackTables-0.20.14.tar.gz
 
      - name: Copy RackTables-0.20.14 wwwroot
-       command: cp -rf /tmp/RackTables-0.20.14/wwwroot/ /var/www/html/racktables
+       shell: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables
 
      - name: Change ownership for copied catalog
-       command: chown -R racktables:racktables /var/www/html/racktables
+       shell: chown -R racktables:racktables /var/www/html/racktables
 
      - include: tasks/rackconf.yml
      - meta: flush_handlers
@@ -65,27 +64,18 @@
          state: disabled
 
 
-     - name: Wait until the string Username is in the file secret.php before continuing
+     - name: Wait until the string Username is in the file secret.php before continuing >
+             open http://Server-IP/racktables/?module=installer  you have 
        wait_for:
          path: /var/www/html/racktables/inc/secret.php
          search_regex: username
-         delay: 100 
+         delay: 80 
        tags: wait
 
 
      - name: RackTables installation step 4 of 7
        shell: chmod 440 /var/www/html/racktables/inc/secret.php
        tags: chors
-
-
-#       expect:
-#          command:  chmod 440 /var/www/html/racktables/inc/secret.php
-#          responses:
-#            Question:
-#                "Are you on this step": "Y"
-                
-#       tags: chors
-
 
 
    handlers:
