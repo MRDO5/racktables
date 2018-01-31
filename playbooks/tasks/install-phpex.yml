@@ -1,6 +1,6 @@
 ---
    - name: Install php and extensions
-     yum: name=php,php-mysqlnd,php-pdo,php-gd,php-snmp,php-mbstring,php-bcmath,php-ldap state=present
+     yum: name=php71u,php71u-mysqlnd,php71u-pdo,php71u-gd,php71u-snmp,php71u-mbstring,php71u-bcmath,php71u-ldap,php71u-json state=present
 #  sudo: yes
      when: ansible_os_family == "RedHat"
 

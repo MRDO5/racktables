@@ -9,6 +9,7 @@
      - include: tasks/mariadb.yml
      - include: tasks/utf8cnf.yml
      - meta: flush_handlers
+     - include: tasks/install-ius.yml
      - include: tasks/install-phpex.yml
      - include: tasks/install-git.yml
 
@@ -17,15 +18,15 @@
        user: name=racktables shell=/sbin/nologin comment="RackTables User" createhome=yes home=/home/racktables
 
 
-     - name: Download RackTables-0.20.14
+     - name: Download RackTables
        git: 
          repo: https://github.com/RackTables/racktables.git
          dest: /tmp/racktables
        tags: git  
 
 
-     - name: Copy RackTables-0.20.14 wwwroot
-       shell: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables
+     - name: Copy RackTables to wwwroot
+       shell: cp -rf /tmp/racktables/wwwroot/ /var/www/html/racktables/
 
      - name: Change ownership for copied catalog
        shell: chown -R racktables:racktables /var/www/html/racktables
