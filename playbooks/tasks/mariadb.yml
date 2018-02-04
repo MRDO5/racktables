@@ -3,7 +3,7 @@
      - name: Set root default password
        mysql_user:
          name: root
-         password: martin**%%
+         password: Password
          priv: '*.*:ALL,GRANT'
          state: present
          check_implicit_admin: yes
@@ -15,7 +15,7 @@
        mysql_db:
          name: racktables
          login_user: root
-         login_password: martin**%%
+         login_password: Password
          state: present
        tags: mariadb
 
@@ -23,7 +23,7 @@
        mysql_user:
          name: rackuser
          login_user: root
-         login_password: martin**%%
+         login_password: Password
          password: 123456
          priv: 'racktables.*:ALL,GRANT'
          state: present
@@ -33,7 +33,7 @@
        mysql_user:
          name: root
          login_user: root
-         login_password: martin**%%
+         login_password: Password
          priv: '*.*:ALL,GRANT'
          state: present
          check_implicit_admin: yes
